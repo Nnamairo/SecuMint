@@ -1,0 +1,270 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage
+.grunt
+
+# Bower dependency directory
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons
+build/Release
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Nuxt.js
+.nuxt
+
+# Gatsby files
+.cache/
+public
+
+# Vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# Yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker
+Dockerfile.prod
+.dockerignore
+docker-compose.override.yml
+
+# Logs
+logs
+*.log
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# Temporary files
+tmp/
+temp/
+
+# Build artifacts
+build/
+dist/
+lib/
+
+# Test artifacts
+test-results/
+coverage/
+
+# Stacks blockchain specific
+.stacks-node/
+stacks-blockchain/
+*.toml.bak
+Clarinet.toml.bak
+settings/
+deployments/
+
+# Clarity contracts compilation
+contracts/*.clar.json
+contracts/costs-*.json
+
+# Wallet and private keys (NEVER COMMIT)
+*.pem
+*.key
+private-keys/
+wallets/
+*.wallet
+
+# Augment-related files
+augment/
+.augment/
+*.augment.*
+
+# PRD and planning documents
+*_PRD.md
+*PRD.md
+planning/
+requirements/
+
+# Security and secrets
+secrets/
+.secrets
+api-keys/
+credentials/
+
+# Monitoring and analytics
+.grafana/
+.prometheus/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Package manager locks (keep yarn.lock, package-lock.json)
+# Uncomment if using different package managers
+# yarn.lock
+# package-lock.json
+# pnpm-lock.yaml
+
+# Local development
+.local/
+local/
+dev/
+
+# Generated documentation
+docs/generated/
+api-docs/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Kubernetes
+*.kubeconfig
+kube-config
+
+# AWS
+.aws/
+
+# Certificate files
+*.crt
+*.cert
+*.ca-bundle
+
+# Compliance and audit logs
+audit-logs/
+compliance-reports/
+
+# Performance profiling
+*.prof
+*.trace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# Poetry
+poetry.lock
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
