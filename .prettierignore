@@ -1,0 +1,92 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+coverage/
+
+# Environment files
+.env*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Storybook
+storybook-static/
+
+# Generated files
+*.min.js
+*.min.css
+
+# Documentation
+*.md
+
+# Config files that should maintain their formatting
+*.json
+*.yml
+*.yaml
+
+# Clarity contracts (maintain original formatting)
+contracts/**/*.clar
+
+# Test artifacts
+__tests__/
+*.test.ts
+*.spec.ts
+
+# Temporary files
+*.tmp
+*.temp
+
+# Docker
+Dockerfile*
+.dockerignore
+
+# Git
+.git/
+.gitignore
+
+# Augment files
+augment/
+.augment/
+*.augment.*
+
+# PRD and planning documents
+PRD*
+product-requirements*
+planning/
+docs/planning/

@@ -1,0 +1,160 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: secumint-postgres
+    environment:
+      POSTGRES_DB: secumint_dev
+      POSTGRES_USER: secumint
+      POSTGRES_PASSWORD: secumint_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - secumint-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U secumint"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis for Caching and Sessions
+  redis:
+    image: redis:7-alpine
+    container_name: secumint-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - secumint-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Backend API Service
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+      target: development
+    container_name: secumint-backend
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://secumint:secumint_dev_password@postgres:5432/secumint_dev
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: dev_jwt_secret_change_in_production
+      STACKS_NETWORK: testnet
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./apps/backend:/app/apps/backend
+      - ./packages:/app/packages
+      - /app/node_modules
+      - /app/apps/backend/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - secumint-network
+    command: npm run dev
+    restart: unless-stopped
+
+  # Frontend Application
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+      target: development
+    container_name: secumint-frontend
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+      NEXT_PUBLIC_STACKS_NETWORK: testnet
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/frontend:/app/apps/frontend
+      - ./packages:/app/packages
+      - /app/node_modules
+      - /app/apps/frontend/node_modules
+    depends_on:
+      - backend
+    networks:
+      - secumint-network
+    command: npm run dev
+    restart: unless-stopped
+
+  # Stacks Node (for local development)
+  stacks-node:
+    image: blockstack/stacks-blockchain:latest
+    container_name: secumint-stacks-node
+    ports:
+      - "20443:20443"
+      - "20444:20444"
+    volumes:
+      - stacks_data:/stacks-node/data
+      - ./infrastructure/stacks/Config.toml:/stacks-node/Config.toml
+    networks:
+      - secumint-network
+    command: [
+      "/bin/stacks-node",
+      "start",
+      "--config",
+      "/stacks-node/Config.toml"
+    ]
+    restart: unless-stopped
+
+  # Grafana for Monitoring
+  grafana:
+    image: grafana/grafana:latest
+    container_name: secumint-grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    ports:
+      - "3002:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./infrastructure/grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - secumint-network
+    restart: unless-stopped
+
+  # Prometheus for Metrics
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: secumint-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus_data:/prometheus
+      - ./infrastructure/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - secumint-network
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  stacks_data:
+  grafana_data:
+  prometheus_data:
+
+networks:
+  secumint-network:
+    driver: bridge

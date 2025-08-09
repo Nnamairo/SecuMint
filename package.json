@@ -1,0 +1,87 @@
+{
+  "name": "secumint",
+  "version": "1.0.0",
+  "description": "Blockchain-powered platform for tokenized securities issuance, registration, and custodian-grade holding",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\" \"npm run dev:stacks\"",
+    "dev:frontend": "npm run dev --workspace=apps/frontend",
+    "dev:backend": "npm run dev --workspace=apps/backend",
+    "dev:stacks": "clarinet devnet start",
+    "build": "npm run build --workspaces",
+    "build:frontend": "npm run build --workspace=apps/frontend",
+    "build:backend": "npm run build --workspace=apps/backend",
+    "test": "npm run test --workspaces",
+    "test:frontend": "npm run test --workspace=apps/frontend",
+    "test:backend": "npm run test --workspace=apps/backend",
+    "test:contracts": "clarinet test",
+    "test:integration": "npm run test:integration --workspace=tests",
+    "test:e2e": "npm run test:e2e --workspace=tests",
+    "test:coverage": "npm run test:coverage --workspaces",
+    "lint": "npm run lint --workspaces",
+    "lint:fix": "npm run lint:fix --workspaces",
+    "type-check": "npm run type-check --workspaces",
+    "contracts:check": "clarinet check",
+    "contracts:test": "clarinet test",
+    "contracts:deploy": "clarinet deploy",
+    "db:migrate": "npm run db:migrate --workspace=apps/backend",
+    "db:seed": "npm run db:seed --workspace=apps/backend",
+    "db:reset": "npm run db:reset --workspace=apps/backend",
+    "deploy:dev": "npm run deploy:dev --workspaces",
+    "deploy:staging": "npm run deploy:staging --workspaces",
+    "deploy:prod": "npm run deploy:prod --workspaces",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "clean": "npm run clean --workspaces && rm -rf node_modules",
+    "postinstall": "npm run build --workspace=packages/shared"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0"
+  },
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/secumint.git"
+  },
+  "keywords": [
+    "blockchain",
+    "securities",
+    "tokenization",
+    "stacks",
+    "defi",
+    "compliance",
+    "custody",
+    "trading",
+    "settlement",
+    "dlt-pilot-regime"
+  ],
+  "author": "SecuMint Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-org/secumint/issues"
+  },
+  "homepage": "https://github.com/your-org/secumint#readme",
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  }
+}

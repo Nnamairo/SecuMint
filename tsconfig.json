@@ -1,0 +1,69 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@secumint/shared": ["./packages/shared/src"],
+      "@secumint/shared/*": ["./packages/shared/src/*"],
+      "@secumint/ui": ["./packages/ui/src"],
+      "@secumint/ui/*": ["./packages/ui/src/*"],
+      "@secumint/contracts": ["./packages/contracts/src"],
+      "@secumint/contracts/*": ["./packages/contracts/src/*"]
+    },
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".next",
+    "coverage",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ],
+  "references": [
+    {
+      "path": "./packages/shared"
+    },
+    {
+      "path": "./packages/ui"
+    },
+    {
+      "path": "./packages/contracts"
+    },
+    {
+      "path": "./apps/frontend"
+    },
+    {
+      "path": "./apps/backend"
+    }
+  ]
+}

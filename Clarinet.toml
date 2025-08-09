@@ -1,0 +1,113 @@
+[project]
+name = "secumint"
+description = "SecuMint - Tokenized Securities Platform on Stacks"
+authors = ["SecuMint Team"]
+telemetry = false
+cache_dir = "./.clarinet/cache"
+requirements = []
+
+[contracts.secumint-securities]
+path = "contracts/secumint-securities.clar"
+depends_on = []
+
+[contracts.secumint-custody]
+path = "contracts/secumint-custody.clar"
+depends_on = ["secumint-securities"]
+
+[contracts.secumint-trading]
+path = "contracts/secumint-trading.clar"
+depends_on = ["secumint-securities", "secumint-custody"]
+
+[contracts.secumint-governance]
+path = "contracts/secumint-governance.clar"
+depends_on = ["secumint-securities"]
+
+[contracts.secumint-dividends]
+path = "contracts/secumint-dividends.clar"
+depends_on = ["secumint-securities"]
+
+# Test contracts
+[contracts.test-usda]
+path = "contracts/test/test-usda.clar"
+depends_on = []
+
+[contracts.test-helpers]
+path = "contracts/test/test-helpers.clar"
+depends_on = []
+
+# Repl settings
+[repl]
+epoch = "2.4"
+
+[repl.analysis]
+passes = ["check_checker"]
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false
+
+# Network configurations
+[networks]
+[networks.devnet]
+stacks_node_rpc_address = "http://localhost:20443"
+stacks_api_url = "http://localhost:3999"
+bitcoin_node_rpc_address = "http://localhost:18443"
+bitcoin_node_rpc_username = "devnet"
+bitcoin_node_rpc_password = "devnet"
+
+[networks.testnet]
+stacks_node_rpc_address = "https://stacks-node-api.testnet.stacks.co"
+stacks_api_url = "https://stacks-node-api.testnet.stacks.co"
+bitcoin_node_rpc_address = "https://blockstream.info/testnet/api"
+
+[networks.mainnet]
+stacks_node_rpc_address = "https://stacks-node-api.mainnet.stacks.co"
+stacks_api_url = "https://stacks-node-api.mainnet.stacks.co"
+bitcoin_node_rpc_address = "https://blockstream.info/api"
+
+# Deployment plans
+[deployments]
+[deployments.devnet]
+[deployments.devnet.secumint-securities]
+path = "contracts/secumint-securities.clar"
+
+[deployments.devnet.test-usda]
+path = "contracts/test/test-usda.clar"
+
+[deployments.devnet.secumint-custody]
+path = "contracts/secumint-custody.clar"
+after = ["secumint-securities"]
+
+[deployments.devnet.secumint-trading]
+path = "contracts/secumint-trading.clar"
+after = ["secumint-securities", "secumint-custody"]
+
+[deployments.devnet.secumint-governance]
+path = "contracts/secumint-governance.clar"
+after = ["secumint-securities"]
+
+[deployments.devnet.secumint-dividends]
+path = "contracts/secumint-dividends.clar"
+after = ["secumint-securities"]
+
+[deployments.testnet]
+[deployments.testnet.secumint-securities]
+path = "contracts/secumint-securities.clar"
+
+[deployments.testnet.secumint-custody]
+path = "contracts/secumint-custody.clar"
+after = ["secumint-securities"]
+
+[deployments.testnet.secumint-trading]
+path = "contracts/secumint-trading.clar"
+after = ["secumint-securities", "secumint-custody"]
+
+[deployments.testnet.secumint-governance]
+path = "contracts/secumint-governance.clar"
+after = ["secumint-securities"]
+
+[deployments.testnet.secumint-dividends]
+path = "contracts/secumint-dividends.clar"
+after = ["secumint-securities"]
