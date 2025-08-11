@@ -9,31 +9,51 @@ requirements = []
 [contracts.secumint-securities]
 path = "contracts/secumint-securities.clar"
 depends_on = []
+clarity_version = 3
+epoch = "latest"
 
 [contracts.secumint-custody]
 path = "contracts/secumint-custody.clar"
 depends_on = ["secumint-securities"]
+clarity_version = 3
+epoch = "latest"
 
 [contracts.secumint-trading]
 path = "contracts/secumint-trading.clar"
 depends_on = ["secumint-securities", "secumint-custody"]
+clarity_version = 3
+epoch = "latest"
 
 [contracts.secumint-governance]
 path = "contracts/secumint-governance.clar"
 depends_on = ["secumint-securities"]
+clarity_version = 3
+epoch = "latest"
 
 [contracts.secumint-dividends]
 path = "contracts/secumint-dividends.clar"
 depends_on = ["secumint-securities"]
+clarity_version = 3
+epoch = "latest"
+
+[contracts.secumint-liquidity]
+path = "contracts/secumint-liquidity.clar"
+depends_on = ["test-usda"]
+clarity_version = 3
+epoch = "latest"
 
 # Test contracts
 [contracts.test-usda]
 path = "contracts/test/test-usda.clar"
 depends_on = []
+clarity_version = 3
+epoch = "latest"
 
 [contracts.test-helpers]
 path = "contracts/test/test-helpers.clar"
 depends_on = []
+clarity_version = 3
+epoch = "latest"
 
 # Repl settings
 [repl]
@@ -91,6 +111,10 @@ after = ["secumint-securities"]
 [deployments.devnet.secumint-dividends]
 path = "contracts/secumint-dividends.clar"
 after = ["secumint-securities"]
+
+[deployments.devnet.secumint-liquidity]
+path = "contracts/secumint-liquidity.clar"
+after = ["test-usda"]
 
 [deployments.testnet]
 [deployments.testnet.secumint-securities]
