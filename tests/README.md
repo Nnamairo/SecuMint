@@ -1,3 +1,8 @@
+# Clarinet Tests
+
+Install dev deps in this folder: npm install
+Run tests: npx vitest run
+Or from repo root: cd tests && npm i && npx vitest run
 # SecuMint Testing Suite
 
 Comprehensive testing framework for the SecuMint tokenized securities platform.
