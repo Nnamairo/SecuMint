@@ -15,8 +15,7 @@
    (get-symbol () (response (string-utf8 32) uint))
    (get-name () (response (string-utf8 32) uint))))
 
-;; The underlying token this pool accepts (e.g., .test-usda)
-(define-constant TOKEN .test-usda)
+;; The underlying token this pool accepts (literal contract principal)
 
 ;; Storage: simple share balances per user (1:1 with token units)
 (define-map balances
@@ -37,8 +36,8 @@
   (begin
     (asserts! (> amount u0) ERR-INVALID-AMOUNT)
     (let (
-      (recipient (as-contract tx-sender))
-      (res (contract-call? TOKEN transfer amount tx-sender recipient none))
+  (recipient (as-contract tx-sender))
+  (res (contract-call? .test-usda transfer amount tx-sender recipient none))
     )
       (match res
         ok-val
@@ -67,10 +66,10 @@
     )
       (asserts! (>= bal amount) ERR-INSUFFICIENT-BALANCE)
       (map-set balances { user: caller } { balance: (- bal amount) })
-      (as-contract
+    (as-contract
         (let (
           (sender tx-sender)
-          (res (contract-call? TOKEN transfer amount sender caller none))
+      (res (contract-call? .test-usda transfer amount sender caller none))
         )
           (match res
             ok-val (ok ok-val)

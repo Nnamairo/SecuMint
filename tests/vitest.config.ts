@@ -8,7 +8,9 @@ export default defineConfig({
     setupFiles: [vitestSetupFilePath],
     environmentOptions: {
       clarinet: {
-        ...getClarinetVitestsArgv(),
+  ...getClarinetVitestsArgv(),
+  // ensure we point to the workspace root Clarinet.toml (one level up from tests/)
+  manifestPath: '../Clarinet.toml',
       },
     },
   },
